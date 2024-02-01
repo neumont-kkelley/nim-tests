@@ -8,3 +8,7 @@ NimTests/NimTests.v3.ncrunchsolution
 NimTests/NimTests.v3.ncrunchsolution.user
 
 NimTests/NimTests/obj/
+
+NimTests/NimTests/bin/
+
+NimTests/.vs/
