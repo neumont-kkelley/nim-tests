@@ -1,0 +1,10 @@
+
+*.vsidx
+
+NimTests/.vs/NimTests/v17/.suo
+
+NimTests/NimTests.v3.ncrunchsolution
+
+NimTests/NimTests.v3.ncrunchsolution.user
+
+NimTests/NimTests/obj/
