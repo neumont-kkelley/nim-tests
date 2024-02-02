@@ -56,10 +56,10 @@ namespace NimTests
         public IPuzzle Puzzle => new NoPuzzle();
     }
 
-    public class Forrest : IArea
+    public class Forest : IArea
     {
-        public Forrest() { }
-        public string Name => "Forrest";
+        public Forest() { }
+        public string Name => "Forest";
         public List<IArea> AvailableAreas => new() { new Cave(), new City() };
 
         public IPuzzle Puzzle => new NoPuzzle();
@@ -71,7 +71,7 @@ namespace NimTests
 
         public string Name => "City";
 
-        public List<IArea> AvailableAreas => new() { new Tower(), new Library(), new Forrest() };
+        public List<IArea> AvailableAreas => new() { new Tower(), new Library(), new Forest() };
         public IPuzzle Puzzle => new NoPuzzle();
     }
 
@@ -119,7 +119,7 @@ namespace NimTests
         public Game()
         {
             GameState = GameState.Playing;
-            CurrentArea = new Forrest();
+            CurrentArea = new Forest();
         }
 
         public void MoveToArea(IArea area)
@@ -231,8 +231,8 @@ namespace NimTests
         [Fact]
         public void Game_Should_Validate_Areas()
         {
-            IArea area = new Forrest();
-            Assert.True(area.Name == "Forrest");
+            IArea area = new Forest();
+            Assert.True(area.Name == "Forest");
             Assert.True(area.AvailableAreas.Count == 2);
             Assert.True(area.AvailableAreas[0] is Cave);
             Assert.True(area.AvailableAreas[1] is City);
@@ -248,7 +248,7 @@ namespace NimTests
             Assert.True(area.AvailableAreas.Count == 3);
             Assert.True(area.AvailableAreas[0] is Tower);
             Assert.True(area.AvailableAreas[1] is Library);
-            Assert.True(area.AvailableAreas[2] is Forrest);
+            Assert.True(area.AvailableAreas[2] is Forest);
             Assert.True(area.Puzzle is NoPuzzle);
 
             area = new Tower();
@@ -274,17 +274,17 @@ namespace NimTests
         public void Game_Should_Path_Correctly()
         {
             /*
-             * Areas: Cave, Forrest, City, Tower, Library, EndArea
+             * Areas: Cave, Forest, City, Tower, Library, EndArea
              * Path: 
-             * Forrest -> Cave=LOSE, City
-             * City -> Forrest, Tower, Library
+             * Forest -> Cave=LOSE, City
+             * City -> Forest, Tower, Library
              * Tower -> City
              * Library -> City, EndArea=WIN
              *
              */
 
             var game = new Game();
-            Assert.True(game.CurrentArea is Forrest);
+            Assert.True(game.CurrentArea is Forest);
             Assert.True(game.GameState == GameState.Playing);
 
             Assert.Throws<Exception>(() => game.MoveToArea(new Tower()));
@@ -295,7 +295,7 @@ namespace NimTests
             Assert.True(game.CurrentArea.Puzzle is NoPuzzle);
 
             //Can't move anymore, game over
-            Assert.Throws<Exception>(() => game.MoveToArea(new Forrest()));
+            Assert.Throws<Exception>(() => game.MoveToArea(new Forest()));
             Assert.Throws<Exception>(() => game.MoveToArea(new Library()));
             Assert.Throws<Exception>(() => game.MoveToArea(new City()));
             Assert.Throws<Exception>(() => game.MoveToArea(new Tower()));
@@ -307,7 +307,7 @@ namespace NimTests
 
             //Start a new game
             game = new Game();
-            Assert.True(game.CurrentArea is Forrest);
+            Assert.True(game.CurrentArea is Forest);
             Assert.True(game.GameState == GameState.Playing);
             Assert.Throws<Exception>(() => game.MoveToArea(new Tower()));
             Assert.Throws<Exception>(() => game.MoveToArea(new Library()));
@@ -327,7 +327,7 @@ namespace NimTests
             Assert.Throws<Exception>(() => game.MoveToArea(new Library()));
             Assert.Throws<Exception>(() => game.MoveToArea(new EndArea()));
             Assert.Throws<Exception>(() => game.MoveToArea(new Cave()));
-            Assert.Throws<Exception>(() => game.MoveToArea(new Forrest()));
+            Assert.Throws<Exception>(() => game.MoveToArea(new Forest()));
             Assert.True(game.CurrentArea.AvailableAreas.Count() == 1);
 
             game.MoveToArea(new City());
@@ -342,7 +342,7 @@ namespace NimTests
             Assert.True(game.CurrentArea.Puzzle is MathPuzzle);
             Assert.Throws<Exception>(() => game.MoveToArea(new Cave()));
             Assert.Throws<Exception>(() => game.MoveToArea(new Tower()));
-            Assert.Throws<Exception>(() => game.MoveToArea(new Forrest()));
+            Assert.Throws<Exception>(() => game.MoveToArea(new Forest()));
             Assert.True(game.CurrentArea.AvailableAreas.Count() == 2);
 
             game.MoveToArea(new EndArea());
@@ -350,7 +350,7 @@ namespace NimTests
             Assert.True(game.CurrentArea.Puzzle is NoPuzzle);
             Assert.Throws<Exception>(() => game.MoveToArea(new Cave()));
             Assert.Throws<Exception>(() => game.MoveToArea(new Tower()));
-            Assert.Throws<Exception>(() => game.MoveToArea(new Forrest()));
+            Assert.Throws<Exception>(() => game.MoveToArea(new Forest()));
             Assert.Throws<Exception>(() => game.MoveToArea(new Library()));
             Assert.Throws<Exception>(() => game.MoveToArea(new City()));
             Assert.True(game.CurrentArea.AvailableAreas.Count() == 0);
