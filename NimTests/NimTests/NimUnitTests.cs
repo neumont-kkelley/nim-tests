@@ -168,7 +168,7 @@ namespace NimTests
     {
 
         [Fact]
-        public void Game_Should_Solve_RiddlePuzzle()
+        public void Game_MUST_Solve_RiddlePuzzle()
         {
             var puzzle = new RiddlePuzzle();
 
